@@ -18,20 +18,39 @@ def pegar_colunas(resultado,colunas):
     if resultado is not None:
         return resultado[colunas]
 
-print(pegar_colunas(import_csv(arquivo_1,endereco_pasta), ["contrato", "qa", "valor_iq", "valor_pp", "diferenca"]))
-#pegar_colunas(import_csv(arquivo_2,endereco_pasta), ["contract", "amount","account_type","bill_item","description"])
+def analisar_contratos(output_concilicao, output_query):
+    if output_conciliacao and output_query is not None:
+        contrato = output_conciliacao.get("contrato")
+        quintoandar_amount = output_conciliacao.get("qa")
+        iq_amount = output_conciliacao.get("valor_iq")
+        pp_amount = output_conciliacao.get("valor_pp")
+        diferenca = output_conciliacao.get("diferenca")
+        total_iq_amount = 0
+        total_pp_amount = 0
+        for index, row in output_query.iterrows():
+            amount = row.get("amount")
+            account_type = row.get("account_type")
+            if amount = quintoandar_amount:
+                print(f"quintoandar_amount é igual a amount,{amount}")
+            elif amount = iq_amount:
+                print(f"iq_amount é igual a amount,{amount}")
+            elif amount = pp_amount:
+                print(f"pp_amount é igual a amount,{amount}")
+            if account_type = "tenant":
+                total_iq_amount += amount
+            if account_type = "landlord":
+                total_pp_amount += amount
+        print(total_pp_amount,total_iq_amount)
 
-def analisar_contratos()
+def main()
+    output_conciliacao = pegar_colunas(import_csv(arquivo_1,endereco_pasta), ["contrato", "qa", "valor_iq", "valor_pp", "diferenca"])
+    output_query = pegar_colunas(import_csv(arquivo_2,endereco_pasta), ["contract", "amount","account_type","bill_item","description"])
+    for index, row in output_conciliacao.iterrows():
+        print(f"Lendo a linha {index}, com o conteúdo {row}")
+        analisar_contratos(row, output_query)
 
-# def analisar_contratos(df, colunas_a_verificar):
-#     if df is not None:
-#         for index, row in df.iterrows():
-#             contrato = row['contrato']
-#             colunas_nao_zero = [coluna for coluna in colunas_a_verificar if row[coluna] != 0]
-#             if colunas_nao_zero:
-#                 print(f"Contrato {contrato}:")
-#                 for coluna in colunas_nao_zero:
-#                     print(f"  Coluna {coluna} tem valor {row[coluna]}")
+if__name__=="__main__":
+    main()
 
 # # Importar e pegar as colunas do primeiro arquivo
 # resultado = import_csv(arquivo_1, endereco_pasta)
